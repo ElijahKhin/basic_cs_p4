@@ -41,7 +41,7 @@ void RootFinder::set_root(double new_value) { root_ = new_value; }
 //==========================Private Methods=============================
 
 inline bool RootFinder::isRoot(double value) {
-	if (std::abs(value) <= eps_) return true;
+	if (std::abs(value) < eps_) return true;
 	return false;
 }
 
@@ -77,13 +77,36 @@ inline double RootFinder::GetSecondX(double x_1) {
 	return x_2;
 }
 
+void RootFinder::SimpleIterations() {
+	double x = GetRandom();
+//	std::cout << "your x: " << x << std::endl;
+
+	if (isRoot(func(x))) {
+		root_ = x;
+		iter_num_ = 1;
+	}
+	else {
+		for (int i = 0; i < MAX_ITER && !iter_num_; i++) {
+			x = coef_ * cos(x);
+//			std::cout << "your x: " << x << std::endl;
+			if (isRoot(func(x))) {
+				root_ = x; 
+				iter_num_ = i + 1;
+			}
+		}
+	}
+}
+
 void RootFinder::Bisection() {
 	double x_1 = GetRandom();
 	double x_2 = GetSecondX(x_1);
 
 //	std::cout << "x_1: " << x_1 << " " << "x_2: " << x_2 << std::endl;
 
-	if (isRoot(func(x_1))) root_ = x_1;
+	if (isRoot(func(x_1))) {
+		root_ = x_1;
+		iter_num_ = 1;
+	}
 	else if (isRoot(func(x_2))) root_ = x_2;
 	else {
 		for (int i = 0; i < MAX_ITER && !iter_num_; i++) {

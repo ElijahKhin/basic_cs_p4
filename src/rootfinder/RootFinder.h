@@ -9,7 +9,7 @@
 
 #include "../common/libft.h"
 
-#define MAX_ITER 100000000
+#define MAX_ITER 1000000
 #define EPS1 0.0000010
 #define EPS2 0.0000001
 

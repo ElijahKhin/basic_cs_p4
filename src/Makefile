@@ -16,11 +16,12 @@ RESET = \033[0m
 
 all: common rootfinder $(NAME)
 
-$(NAME): $(SRC)
-	@$(CLR) $(FLAGS) $< -L. rootfinder/RootFinder.a common/common.a -o $@
+$(NAME):
+	@$(CLR) $(FLAGS) $(SRC) -L. rootfinder/RootFinder.a common/common.a -o $@
 	@echo "----------------------------------------------------------\n"
 	@printf "$(CURSIVE)Assembling $(NAME) ⚙️ ... $(GREEN)DONE! 🥂$(RESET)"
 	@echo "\n"
+.PHONY: $(NAME)
 
 common:
 	@make -C common/
